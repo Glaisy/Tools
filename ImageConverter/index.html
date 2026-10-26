@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Image Conversion Utility</h1>
+
+    <div class="columns">
+        <div class="column column-left">
+            <h2>Source</h2>
+            <div id="drop-zone" class="drop-zone">
+                <p>Drag & drop an image here or</p>
+                <button id="browse-btn" class="btn">Browse Files</button>
+                <input type="file" id="file-input" accept="image/*" hidden>
+            </div>
+            <div id="source-preview" class="preview-box">
+                <img id="source-image" class="hidden" alt="">
+            </div>
+            <div id="source-info" class="image-info"></div>
+        </div>
+
+        <div class="column column-center">
+            <div class="controls-section">
+                <fieldset class="control-group">
+                    <legend>Position and Orientation</legend>
+
+                    <div class="control-row">
+                        <span class="control-label">Flip</span>
+                        <div class="control-buttons">
+                            <button id="flip-h" class="btn-toggle" title="Flip Horizontal" disabled>Horizontal</button>
+                            <button id="flip-v" class="btn-toggle" title="Flip Vertical" disabled>Vertical</button>
+                        </div>
+                    </div>
+
+                    <div class="control-row">
+                        <span class="control-label">Rotate</span>
+                        <div class="control-buttons">
+                            <button id="rotate-ccw" class="btn-icon" title="Rotate 90° Counter-Clockwise" disabled>90° CCW</button>
+                            <button id="rotate-cw" class="btn-icon" title="Rotate 90° Clockwise" disabled>90° CW</button>
+                        </div>
+                    </div>
+
+                    <div class="control-row">
+                        <span class="control-label">Shift</span>
+                        <div class="shift-controls">
+                            <div class="shift-grid">
+                                <button id="shift-up" class="btn-icon btn-arrow" title="Shift Up" disabled><svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg></button>
+                                <button id="shift-left" class="btn-icon btn-arrow" title="Shift Left" disabled><svg viewBox="0 0 24 24"><path d="M4 12l8-8v5h8v6h-8v5z"/></svg></button>
+                                <button id="shift-right" class="btn-icon btn-arrow" title="Shift Right" disabled><svg viewBox="0 0 24 24"><path d="M20 12l-8-8v5H4v6h8v5z"/></svg></button>
+                                <button id="shift-down" class="btn-icon btn-arrow" title="Shift Down" disabled><svg viewBox="0 0 24 24"><path d="M12 20l8-8h-5V4h-6v8H4z"/></svg></button>
+                            </div>
+                            <div class="shift-amount">
+                                <label for="shift-pixels">Pixels</label>
+                                <input type="number" id="shift-pixels" value="0" min="0" max="9999" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="control-group">
+                    <legend>Cube Maps</legend>
+
+                    <div class="control-row no-border">
+                        <button id="cubemap-cross-to-row" class="btn-toggle btn-wide" title="Rearrange cube map cross into a single row: +X, -X, +Y, -Y, +Z, -Z" disabled>Cross → Row</button>
+                    </div>
+                    <div class="control-row no-border">
+                        <button id="cubemap-row-to-cross" class="btn-toggle btn-wide" title="Rearrange cube map row (+X, -X, +Y, -Y, +Z, -Z) into a horizontal cross" disabled>Row → Cross</button>
+                    </div>
+                </fieldset>
+
+                <fieldset class="control-group">
+                    <legend>Wrap Seam</legend>
+
+                    <div class="control-row no-border">
+                        <button id="fix-wrap-seam" class="btn-toggle btn-wide" title="Blend the left and right edges together so the map wraps without a visible vertical line" disabled>Fix Left/Right Seam</button>
+                    </div>
+                    <div class="control-row no-border">
+                        <span class="control-label">Band</span>
+                        <div class="shift-amount">
+                            <label for="seam-band">Pixels</label>
+                            <input type="number" id="seam-band" value="16" min="1" max="512" disabled>
+                        </div>
+                    </div>
+                    <div class="control-row no-border">
+                        <span id="seam-info" class="seam-info">Load an image to measure its seam</span>
+                    </div>
+                </fieldset>
+
+                <div class="reset-row">
+                    <button id="reset-btn" class="btn btn-reset" disabled>Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="column column-right">
+            <h2>Result</h2>
+            <div id="result-viewport" class="preview-box result-viewport">
+                <canvas id="preview-canvas"></canvas>
+            </div>
+            <div class="zoom-bar">
+                <label for="zoom-slider">Zoom</label>
+                <input type="range" id="zoom-slider" min="1" max="8" step="1" value="1" disabled>
+                <span id="zoom-value">1x</span>
+            </div>
+            <div id="result-info" class="image-info"></div>
+            <div class="save-section">
+                <div class="filename-row">
+                    <label for="output-filename">File name</label>
+                    <input type="text" id="output-filename" value="" placeholder="output" disabled>
+                </div>
+                <button id="save-btn" class="btn btn-save" disabled>Save Image</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
